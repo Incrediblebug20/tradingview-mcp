@@ -198,6 +198,43 @@ tv stream tables --filter Profiler       # table data monitoring
 tv stream all                            # all panes at once (multi-symbol)
 ```
 
+## Agent Instructions & Strategy Configuration
+
+### Instruction Files
+
+| File | Agent | Purpose |
+|------|-------|---------|
+| [`CLAUDE.md`](CLAUDE.md) | Claude Code | Auto-loaded by Claude Code. Full decision tree, context rules, output size estimates, architecture notes. |
+| [`AGENTS.md`](AGENTS.md) | Codex / OpenAI | Drop-in equivalent for OpenAI Codex and other agents. Same tool decision tree in Codex-compatible format. |
+
+### Trading Strategy Config — `rules.json`
+
+[`rules.json`](rules.json) defines the default swing-trading ruleset used when Claude analyzes your chart or evaluates setups:
+
+```json
+{
+  "strategy": "swing-trading",
+  "timeframes": ["1W", "1D", "4H"],
+  "risk_rules": {
+    "max_risk_per_trade_pct": 1.0,
+    "min_reward_to_risk_ratio": 2.0,
+    "max_open_trades": 3
+  }
+}
+```
+
+**Watchlist** — 8 crypto pairs tracked by default: `BTCUSDT`, `ETHUSDT`, `SOLUSDT`, `BNBUSDT`, `XRPUSDT`, `ADAUSDT`, `AVAXUSDT`, `DOGEUSDT`, plus dominance charts (`BTC.D`, `TOTAL`, `TOTAL2`, etc.).
+
+**Bias rules** — bullish/bearish/neutral conditions defined by EMA structure (50/200 golden-death cross), RSI 14 ranges, and market structure (HH/HL vs LH/LL).
+
+**Risk rules** — 1% max risk per trade, minimum 2R reward-to-risk, risk-based position sizing, stop below swing low (long) / above swing high (short), trail stop after 1R hit.
+
+**Indicators** — RSI(14), MACD(12,26,9), EMA-50, EMA-200, Volume MA(20).
+
+Edit `rules.json` to customise the watchlist, risk parameters, or indicator settings for your own strategy.
+
+---
+
 ## How Claude Knows Which Tool to Use
 
 Claude reads [`CLAUDE.md`](CLAUDE.md) automatically when working in this project. It contains a complete decision tree:
