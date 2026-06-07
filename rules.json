@@ -1,0 +1,61 @@
+{
+  "strategy": "swing-trading",
+  "watchlist": {
+    "crypto_pairs": [
+      "BTCUSDT",
+      "ETHUSDT",
+      "SOLUSDT",
+      "BNBUSDT",
+      "XRPUSDT",
+      "ADAUSDT",
+      "AVAXUSDT",
+      "DOGEUSDT"
+    ],
+    "dominance_charts": [
+      "BTC.D",
+      "ETH.D",
+      "TOTAL",
+      "TOTAL2",
+      "TOTAL3",
+      "OTHERS.D"
+    ]
+  },
+  "timeframes": ["1W", "1D", "4H"],
+  "bias": {
+    "bullish": {
+      "ema": "price above 50 EMA and 50 EMA above 200 EMA (golden cross structure)",
+      "rsi": "RSI 14 between 50 and 70 (momentum without overbought)",
+      "market_structure": "series of higher highs and higher lows, recent swing low held"
+    },
+    "bearish": {
+      "ema": "price below 50 EMA and 50 EMA below 200 EMA (death cross structure)",
+      "rsi": "RSI 14 between 30 and 50 (bearish momentum without oversold)",
+      "market_structure": "series of lower highs and lower lows, recent swing high rejected"
+    },
+    "neutral": {
+      "ema": "price oscillating around 50 EMA or 50/200 EMAs converging",
+      "rsi": "RSI 14 near 50 with no clear directional pressure",
+      "market_structure": "range-bound price action, no clear HH/HL or LH/LL pattern"
+    }
+  },
+  "risk_rules": {
+    "max_risk_per_trade_pct": 1.0,
+    "min_reward_to_risk_ratio": 2.0,
+    "position_sizing": "risk_based",
+    "stop_loss": "below nearest swing low (long) or above nearest swing high (short)",
+    "take_profit": "minimum 2R; trail stop on higher timeframe structure after 1R hit",
+    "max_open_trades": 3,
+    "avoid_entries": [
+      "within 30 min of major macro news",
+      "when daily volume is below 20-day average by more than 40%",
+      "when RSI is above 75 (overbought) for longs or below 25 (oversold) for shorts"
+    ]
+  },
+  "indicators": {
+    "RSI": { "period": 14, "overbought": 70, "oversold": 30 },
+    "MACD": { "fast": 12, "slow": 26, "signal": 9 },
+    "EMA_50": { "period": 50 },
+    "EMA_200": { "period": 200 },
+    "Volume": { "ma_period": 20, "threshold_multiplier": 1.5 }
+  }
+}
